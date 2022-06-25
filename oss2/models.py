@@ -398,9 +398,6 @@ BUCKET_STORAGE_CLASS_STANDARD = 'Standard'
 BUCKET_STORAGE_CLASS_IA = 'IA'
 BUCKET_STORAGE_CLASS_ARCHIVE = 'Archive'
 
-BUCKET_DATA_REDUNDANCY_TYPE_LRS = "LRS"
-BUCKET_DATA_REDUNDANCY_TYPE_ZRS = "ZRS"
-
 REDIRECT_TYPE_MIRROR = 'Mirror'
 REDIRECT_TYPE_EXTERNAL = 'External'
 REDIRECT_TYPE_INTERNAL = 'Internal'
@@ -443,9 +440,8 @@ class GetBucketLoggingResult(RequestResult, BucketLogging):
 
 
 class BucketCreateConfig(object):
-    def __init__(self, storage_class, data_redundancy_type=None):
+    def __init__(self, storage_class):
         self.storage_class = storage_class
-        self.data_redundancy_type = data_redundancy_type
 
 
 class BucketStat(object):
