@@ -75,8 +75,7 @@ class Auth(AuthBase):
          'symlink', 'callback', 'callback-var', 'tagging', 'encryption', 'versions',
          'versioning', 'versionId', 'policy', 'requestPayment', 'x-oss-traffic-limit', 'qosInfo', 'asyncFetch',
          'x-oss-request-payer', 'sequential', 'inventory', 'inventoryId', 'continuation-token', 'callback',
-         'callback-var', 'worm', 'wormId', 'wormExtend', 'replication', 'replicationLocation',
-         'replicationProgress']
+         'callback-var', 'worm', 'wormId', 'wormExtend']
     )
 
     def _sign_request(self, req, bucket_name, key):

@@ -156,9 +156,6 @@ class InvalidEncryptionRequest(ServerError):
     status = 400
     code = 'InvalidEncryptionRequest'
 
-class BucketReplicationAlreadyExist(ServerError):
-    status = 400
-    code = 'BucketReplicationAlreadyExist'
 
 class NoSuchBucket(NotFound):
     status = 404
@@ -202,10 +199,6 @@ class NoSuchBucketPolicy(NotFound):
 class NoSuchInventory(NotFound):
     status = 404
     code = 'NoSuchInventory'
-
-class NoSuchReplicationRule(NotFound):
-    status = 404
-    code = 'NoSuchReplicationRule'
 
 class Conflict(ServerError):
     status = 409
