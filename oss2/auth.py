@@ -72,7 +72,7 @@ class Auth(AuthBase):
          'response-expires', 'response-content-disposition', 'cors', 'lifecycle',
          'restore', 'qos', 'referer', 'stat', 'bucketInfo', 'append', 'position', 'security-token',
          'live', 'comp', 'status', 'vod', 'startTime', 'endTime', 'x-oss-process',
-         'symlink', 'callback', 'callback-var', 'tagging', 'encryption']
+         'symlink', 'callback', 'callback-var']
     )
 
     def _sign_request(self, req, bucket_name, key):
