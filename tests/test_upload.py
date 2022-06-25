@@ -156,11 +156,11 @@ class TestUpload(OssTestCase):
                          modify_record_func=None):
         orig_upload_part = oss2.Bucket.upload_part
 
-        def upload_part(self, key, upload_id, part_number, data, headers):
+        def upload_part(self, key, upload_id, part_number, data):
             if part_number == failed_part_number:
                 raise RuntimeError
             else:
-                return orig_upload_part(self, key, upload_id, part_number, data, headers)
+                return orig_upload_part(self, key, upload_id, part_number, data)
 
         key = 'resume-' + random_string(32)
         content = random_bytes(content_size)

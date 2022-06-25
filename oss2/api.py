@@ -1223,8 +1223,6 @@ class Bucket(_Base):
 
         :return: :class:`PutObjectResult <oss2.models.PutObjectResult>`
         """
-        headers = http.CaseInsensitiveDict(headers)
-
         if progress_callback:
             data = utils.make_progress_adapter(data, progress_callback)
 
@@ -1260,7 +1258,6 @@ class Bucket(_Base):
 
         :return: :class:`PutObjectResult <oss2.models.PutObjectResult>`
         """
-        headers = http.CaseInsensitiveDict(headers)
         parts = sorted(parts, key=lambda p: p.part_number);
         data = xml_utils.to_complete_upload_request(parts);
 
@@ -1661,12 +1658,8 @@ class Bucket(_Base):
         :param input: :class:`BucketWebsite <oss2.models.BucketWebsite>`
         """
         data = self.__convert_data(BucketWebsite, xml_utils.to_put_bucket_website, input)
-
-        headers = http.CaseInsensitiveDict()
-        headers['Content-MD5'] = utils.content_md5(data)
-
         logger.debug("Start to put bucket website, bucket: {0}, website: {1}".format(self.bucket_name, to_string(data)))
-        resp = self.__do_bucket('PUT', data=data, params={Bucket.WEBSITE: ''}, headers=headers)
+        resp = self.__do_bucket('PUT', data=data, params={Bucket.WEBSITE: ''})
         logger.debug("Put bucket website done, req_id: {0}, status_code: {1}".format(resp.request_id, resp.status))
         return RequestResult(resp)
 
