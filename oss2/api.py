@@ -1979,7 +1979,8 @@ class Bucket(_Base):
         logger.debug("Start to put object tagging, bucket: {0} tagging: {1}".format(
             self.bucket_name, tagging))
 
-        headers = http.CaseInsensitiveDict(headers)
+        if headers is not None:
+            headers = http.CaseInsensitiveDict(headers)
 
         data = self.__convert_data(Tagging, xml_utils.to_put_tagging, tagging) 
         resp = self.__do_bucket('PUT', data=data, params={Bucket.TAGGING: ''}, headers=headers)
