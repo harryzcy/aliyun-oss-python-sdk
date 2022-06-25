@@ -55,6 +55,7 @@ class TestXmlUtils(unittest.TestCase):
                 <AccessControlList>
                     <Grant>private</Grant>
                 </AccessControlList>
+                <Comment>test</Comment>
             </Bucket>
         </BucketInfo>
         '''
@@ -71,10 +72,6 @@ class TestXmlUtils(unittest.TestCase):
         result = oss2.models.GetBucketInfoResult(resp)
         parse_get_bucket_info(result, body)
         self.assertEqual(result.location, 'oss-cn-hangzhou')
-        self.assertIsNone(result.data_redundancy_type)
-        self.assertIsNone(result.comment)
-        self.assertIsNone(result.versioning_status)
-        self.assertIsNone(result.bucket_encryption_rule)
 
 
 if __name__ == '__main__':
