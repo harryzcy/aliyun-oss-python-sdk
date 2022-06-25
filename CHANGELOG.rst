@@ -3,10 +3,6 @@ OSS SDK for Python 版本记录
 
 Python SDK的版本号遵循 `Semantic Versioning <http://semver.org/>`_ 规则。
 
-Version 2.12.1
--------------
-- 增加：添加six依赖包
-
 Version 2.12.0
 -------------
 - 增加：支持ListObjectV2接口
