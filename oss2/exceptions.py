@@ -269,9 +269,6 @@ class SignatureDoesNotMatch(ServerError):
     status = 403
     code = 'SignatureDoesNotMatch'
 
-class ObjectAlreadyExists(ServerError):
-    status = 400
-    code = 'ObjectAlreadyExists'
 
 def make_exception(resp):
     status = resp.status
