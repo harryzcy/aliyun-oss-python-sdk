@@ -31,11 +31,6 @@ multipart_num_threads = 1
 #: 缺省分片大小
 part_size = 10 * 1024 * 1024
 
-#: 最大分片的个数
-max_part_count = 10000
-
-#: 最小分片大小
-min_part_size = 100 * 1024
 
 #: 每个Session连接池大小
 connection_pool_size = 10

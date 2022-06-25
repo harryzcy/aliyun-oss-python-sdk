@@ -147,16 +147,6 @@ class InvalidObjectName(ServerError):
     code = 'InvalidObjectName'
 
 
-class NotImplemented(ServerError):
-    status = 400
-    code = 'NotImplemented'
-
-
-class InvalidEncryptionRequest(ServerError):
-    status = 400
-    code = 'InvalidEncryptionRequest'
-
-
 class NoSuchBucket(NotFound):
     status = 404
     code = 'NoSuchBucket'

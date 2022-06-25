@@ -15,7 +15,8 @@ class TestResumable(unittest.TestCase):
         n = 10000
         size = (oss2.defaults.part_size + 1) * n
         part_size = oss2.determine_part_size(size)
-        self.assertEqual(part_size, oss2.defaults.part_size * 2)
+        self.assertEqual((n * part_size), size)
+        self.assertEqual(part_size, (oss2.defaults.part_size+1))
 
         n = 10000
         size = (oss2.defaults.part_size * n) + 5

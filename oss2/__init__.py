@@ -1,8 +1,8 @@
 __version__ = '2.10.0'
 
-from . import models, exceptions, defaults
+from . import models, exceptions
 
-from .api import Service, Bucket
+from .api import Service, Bucket, CryptoBucket
 from .auth import Auth, AuthV2, AnonymousAuth, StsAuth, AUTH_VERSION_1, AUTH_VERSION_2, make_auth
 from .http import Session, CaseInsensitiveDict
 
@@ -29,8 +29,7 @@ from .models import BUCKET_STORAGE_CLASS_STANDARD, BUCKET_STORAGE_CLASS_IA, BUCK
 from .models import BUCKET_VERSIONING_ENABLE, BUCKET_VERSIONING_SUSPEND 
 from .models import BUCKET_DATA_REDUNDANCY_TYPE_LRS, BUCKET_DATA_REDUNDANCY_TYPE_ZRS
 
-from .crypto import LocalRsaProvider, AliKMSProvider, RsaProvider,EncryptionMaterials
-from .crypto_bucket import CryptoBucket
+from .crypto import LocalRsaProvider, AliKMSProvider
 import logging
 
 logger = logging.getLogger('oss2')
