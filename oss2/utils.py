@@ -405,12 +405,7 @@ class _FileLikeAdapter(object):
         if self.read_all:
             raise StopIteration
 
-        content = self.read(_CHUNK_SIZE)
-
-        if content:
-            return content
-        else:
-            raise StopIteration
+        return self.read(_CHUNK_SIZE)
 
     def read(self, amt=None):
         offset_start = self.offset
@@ -421,6 +416,7 @@ class _FileLikeAdapter(object):
         if not content:
             self.read_all = True
             _invoke_progress_callback(self.progress_callback, self.offset, None)
+            return to_bytes('')
         else:
             _invoke_progress_callback(self.progress_callback, self.offset, None)
 
@@ -437,7 +433,7 @@ class _FileLikeAdapter(object):
             content = _invoke_cipher_callback(self.cipher_callback, content, real_discard)
 
             self.discard -= real_discard
-        return content
+            return content
 
     @property
     def crc(self):
