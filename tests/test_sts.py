@@ -50,6 +50,8 @@ if oss2.compat.is_py2:
                                               security_token,
                                               os.getenv('OSS_TEST_AUTH_VERSION'))
 
+    oss2.StsAuth = TestSTSAuth
+
     class TestSts(unittest.TestCase):
         def setUp(self):
             self.bucket = None
