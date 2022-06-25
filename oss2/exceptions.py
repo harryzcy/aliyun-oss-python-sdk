@@ -182,11 +182,6 @@ class NoSuchLiveChannel(NotFound):
     code = 'NoSuchLiveChannel'
 
 
-class NoSuchBucketPolicy(NotFound):
-    status = 404
-    code = 'NoSuchBucketPolicy'
-
-
 class Conflict(ServerError):
     status = 409
     code = ''
