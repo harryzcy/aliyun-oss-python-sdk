@@ -206,8 +206,6 @@ class _Base(object):
                  app_name='', enable_crc=True):
         self.auth = auth
         self.endpoint = _normalize_endpoint(endpoint.strip())
-        if utils.is_valid_endpoint(self.endpoint) is not True:
-            raise ClientError('The endpoint you has specified is not valid, endpoint: {0}'.format(endpoint))
         self.session = session or http.Session()
         self.timeout = defaults.get(connect_timeout, defaults.connect_timeout)
         self.app_name = app_name
@@ -2434,17 +2432,11 @@ class Bucket(_Base):
 
 
 def _normalize_endpoint(endpoint):
-    url = endpoint
-
     if not endpoint.startswith('http://') and not endpoint.startswith('https://'):
-        url = 'http://' + endpoint
-
-    p = urlparse(url)
-
-    if p.port is not None:
-        return p.scheme + '://' + p.hostname + ':' + str(p.port)
+        return 'http://' + endpoint
     else:
-        return p.scheme + '://' + p.hostname
+        return endpoint
+
 
 _ENDPOINT_TYPE_ALIYUN = 0
 _ENDPOINT_TYPE_CNAME = 1
