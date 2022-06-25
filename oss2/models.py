@@ -403,8 +403,6 @@ REDIRECT_TYPE_EXTERNAL = 'External'
 REDIRECT_TYPE_INTERNAL = 'Internal'
 REDIRECT_TYPE_ALICDN = 'AliCDN'
 
-PAYER_BUCKETOWNER = 'BucketOwner'
-PAYER_REQUESTER = 'Requester'
 
 class GetBucketAclResult(RequestResult):
     def __init__(self, resp):
@@ -1320,8 +1318,3 @@ class GetBucketPolicyResult(RequestResult):
     def __init__(self, resp):
         RequestResult.__init__(self, resp)
         self.policy = to_string(resp.read())
-
-class GetBucketRequestPaymentResult(RequestResult):
-    def __init__(self, resp):
-        RequestResult.__init__(self, resp)
-        self.payer = ''
