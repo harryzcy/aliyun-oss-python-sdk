@@ -1148,10 +1148,6 @@ class GetLiveChannelHistoryResult(RequestResult, LiveChannelHistory):
         RequestResult.__init__(self, resp)
         LiveChannelHistory.__init__(self)
 
-class GetVodPlaylistResult(RequestResult):
-    def __init__(self, resp):
-        RequestResult.__init__(self, resp)
-        self.playlist = to_string(resp.read())
 
 class ProcessObjectResult(RequestResult):
     def __init__(self, resp):
