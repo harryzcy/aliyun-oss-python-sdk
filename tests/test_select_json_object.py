@@ -4,20 +4,10 @@ import filecmp
 import calendar
 import json
 import re
-import sys
 
 from oss2.exceptions import (ClientError, RequestError, NoSuchBucket,
                              NotFound, NoSuchKey, Conflict, PositionNotEqualToLength, ObjectNotAppendable, SelectOperationFailed,SelectOperationClientError)
 from common import *
-
-if sys.version_info[0] > 2:
-    # py3k
-    def _open(file):
-        return open(file, 'r', encoding='utf-8')
-else:
-    # py2
-    def _open(file):
-        return open(file, 'r')
 
 def now():
     return int(calendar.timegm(time.gmtime()))
@@ -104,7 +94,7 @@ class TestSelectJsonObject(OssTestCase):
         result = json.loads(content.decode('utf-8'))
 
         result_index = 0
-        with _open('tests/sample_json.json') as json_file:
+        with open('tests/sample_json.json') as json_file:
             data = json.load(json_file)
             for row in data['objects']:
                 if row['party'] == 'Democrat':
@@ -123,7 +113,7 @@ class TestSelectJsonObject(OssTestCase):
         result = json.loads(content.decode('utf-8'))
 
         result2 = []
-        with _open('tests/sample_json.json') as json_file:
+        with open('tests/sample_json.json') as json_file:
             data = json.load(json_file)
             for row in data['objects']:
                 if row['party'] == 'Democrat':
@@ -141,7 +131,7 @@ class TestSelectJsonObject(OssTestCase):
         result = json.loads(content.decode('utf-8'))
 
         index = 0
-        with _open('tests/sample_json.json') as json_file:
+        with open('tests/sample_json.json') as json_file:
             data = json.load(json_file)
             for row in data['objects']:
                 select_row = {}
@@ -161,7 +151,7 @@ class TestSelectJsonObject(OssTestCase):
         result = json.loads(content.decode('utf-8'))
 
         index = 0
-        with _open('tests/sample_json.json') as json_file:
+        with open('tests/sample_json.json') as json_file:
             data = json.load(json_file)
             for row in data['objects']:
                 select_row = {}
@@ -254,7 +244,7 @@ class TestSelectJsonObject(OssTestCase):
 
         result_index = 0
         result2 = []
-        with _open('tests/sample_json.json') as json_file:
+        with open('tests/sample_json.json') as json_file:
             data = json.load(json_file)
             index = 0
             for row in data['objects']:
@@ -293,7 +283,7 @@ class TestSelectJsonObject(OssTestCase):
         result = json.loads(content.decode('utf-8'))
 
         result_index = 0
-        with _open('tests/sample_json.json') as json_file:
+        with open('tests/sample_json.json') as json_file:
             data = json.load(json_file)
             for row in data['objects']:
                 if row['person']['firstname'] == 'John' and row['person']['lastname'] == 'Kennedy' :
@@ -310,7 +300,7 @@ class TestSelectJsonObject(OssTestCase):
         result = json.loads(content.decode('utf-8'))
 
         result_index = 0
-        with _open('tests/sample_json.json') as json_file:
+        with open('tests/sample_json.json') as json_file:
             data = json.load(json_file)
             for row in data['objects']:
                 if row['startdate'] > '2017-01-01' and row['senator_rank'] == 'junior' or row['state'] == 'CA' and row['party'] == 'Republican':
