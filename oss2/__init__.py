@@ -7,7 +7,7 @@ from .auth import Auth, AuthV2, AnonymousAuth, StsAuth, AUTH_VERSION_1, AUTH_VER
 from .http import Session, CaseInsensitiveDict
 
 
-from .iterators import (BucketIterator, ObjectIterator, ObjectIteratorV2,
+from .iterators import (BucketIterator, ObjectIterator,
                         MultipartUploadIterator, ObjectUploadIterator,
                         PartIterator, LiveChannelIterator)
 
