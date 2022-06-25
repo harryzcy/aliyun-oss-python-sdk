@@ -22,18 +22,10 @@ from oss2.models import (InventoryConfiguration,
                         FIELD_ENCRYPTION_STATUS)
 
 class TestBucketInventory(OssTestCase):
-    def setUp(self):
-        OssTestCase.setUp(self)
-        self.endpoint = "http://oss-ap-southeast-2.aliyuncs.com"
-        bucket_name = OSS_BUCKET + "-test-inventory"
-        self.bucket1 = oss2.Bucket(oss2.make_auth(OSS_ID, OSS_SECRET, OSS_AUTH_VERSION), self.endpoint, bucket_name)
-        self.bucket1.create_bucket()
-
-
     def test_bucket_inventory(self):
         auth = oss2.Auth(OSS_ID, OSS_SECRET)
         dest_bucket_name = OSS_BUCKET + "-test-inventory-dest"
-        dest_bucket = oss2.Bucket(auth, self.endpoint, dest_bucket_name)
+        dest_bucket = oss2.Bucket(auth, OSS_ENDPOINT, dest_bucket_name)
         dest_bucket.create_bucket()
 
         inventory_id = "test-id-3"
@@ -57,9 +49,9 @@ class TestBucketInventory(OssTestCase):
                 optional_fields=optional_fields,
                 inventory_destination=InventoryDestination(bucket_destination=bucket_destination))
 
-        self.bucket1.put_bucket_inventory_configuration(inventory_configuration);
+        self.bucket.put_bucket_inventory_configuration(inventory_configuration);
 
-        result = self.bucket1.get_bucket_inventory_configuration(inventory_id = inventory_id);
+        result = self.bucket.get_bucket_inventory_configuration(inventory_id = inventory_id);
         self.assertEquals(inventory_id, result.inventory_id)
         self.assertEquals(True, result.is_enabled)
         self.assertEquals(INVENTORY_FREQUENCY_WEEKLY, result.inventory_schedule.frequency)
@@ -75,7 +67,7 @@ class TestBucketInventory(OssTestCase):
         self.assertIsNone(ret_bucket_destin.sse_kms_encryption)
         self.assertIsNotNone(ret_bucket_destin.sse_oss_encryption)
 
-        self.bucket1.delete_bucket_inventory_configuration(inventory_id)
+        self.bucket.delete_bucket_inventory_configuration(inventory_id)
         dest_bucket.delete_bucket()
 
     def test_error_bucket_encryption(self):
@@ -92,7 +84,7 @@ class TestBucketInventory(OssTestCase):
     def test_list_few_bucket_inventory(self):
         auth = oss2.Auth(OSS_ID, OSS_SECRET)
         dest_bucket_name = OSS_BUCKET + "-test-inventory-dest"
-        dest_bucket = oss2.Bucket(auth, self.endpoint, dest_bucket_name)
+        dest_bucket = oss2.Bucket(auth, OSS_ENDPOINT, dest_bucket_name)
         dest_bucket.create_bucket()
 
         inventory_id_prefix = "test-id-"
@@ -118,17 +110,17 @@ class TestBucketInventory(OssTestCase):
                     optional_fields=optional_fields,
                     inventory_destination=InventoryDestination(bucket_destination=bucket_destination))
 
-            self.bucket1.put_bucket_inventory_configuration(inventory_configuration);
+            self.bucket.put_bucket_inventory_configuration(inventory_configuration);
         
         # test with param empty
-        result = self.bucket1.list_bucket_inventory_configurations('')
+        result = self.bucket.list_bucket_inventory_configurations('')
         self.assertEquals(3, len(result.inventory_configurations))
         self.assertEquals(False, result.is_truncated)
         self.assertEquals(None, result.continuaiton_token)
         self.assertEquals(None, result.next_continuation_token)
 
         # test with param None
-        result = self.bucket1.list_bucket_inventory_configurations()
+        result = self.bucket.list_bucket_inventory_configurations()
         self.assertEquals(3, len(result.inventory_configurations))
         self.assertEquals(False, result.is_truncated)
         self.assertEquals(None, result.continuaiton_token)
@@ -139,7 +131,7 @@ class TestBucketInventory(OssTestCase):
     def test_list_lot_bucket_inventory(self):
         auth = oss2.Auth(OSS_ID, OSS_SECRET)
         dest_bucket_name = OSS_BUCKET + "-test-inventory-dest"
-        dest_bucket = oss2.Bucket(auth, self.endpoint, dest_bucket_name)
+        dest_bucket = oss2.Bucket(auth, OSS_ENDPOINT, dest_bucket_name)
         dest_bucket.create_bucket()
 
         inventory_id_prefix = "test-id-"
@@ -165,16 +157,16 @@ class TestBucketInventory(OssTestCase):
                     optional_fields=optional_fields,
                     inventory_destination=InventoryDestination(bucket_destination=bucket_destination))
 
-            self.bucket1.put_bucket_inventory_configuration(inventory_configuration);
+            self.bucket.put_bucket_inventory_configuration(inventory_configuration);
 
-        result = self.bucket1.list_bucket_inventory_configurations()
+        result = self.bucket.list_bucket_inventory_configurations()
         self.assertEquals(100, len(result.inventory_configurations))
         self.assertEquals(True, result.is_truncated)
         self.assertEquals(None, result.continuaiton_token)
         self.assertIsNotNone(result.next_continuation_token)
 
         next_continuation_token = result.next_continuation_token
-        result = self.bucket1.list_bucket_inventory_configurations(next_continuation_token)
+        result = self.bucket.list_bucket_inventory_configurations(next_continuation_token)
         self.assertEquals(20, len(result.inventory_configurations))
         self.assertEquals(False, result.is_truncated)
         self.assertEquals(next_continuation_token, result.continuaiton_token)
@@ -183,7 +175,7 @@ class TestBucketInventory(OssTestCase):
         dest_bucket.delete_bucket()
 
     def test_list_none_inventory(self):
-        self.assertRaises(oss2.exceptions.NoSuchInventory, self.bucket1.list_bucket_inventory_configurations)
+        self.assertRaises(oss2.exceptions.NoSuchInventory, self.bucket.list_bucket_inventory_configurations)
 
 
 if __name__ == '__main__':
